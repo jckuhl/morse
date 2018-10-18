@@ -1,10 +1,8 @@
-const Result = Vue.component('Result', {
-    template: `
-            <div v-if="result">
-                <p>{{ result.morse }}</p>
-                <small>{{ result.phrase }}</small>
-                <button @click="playMorse">Play!</button>
-            </div>`,
+/**
+ * Play button to play the Morse code sound
+ */
+const PlayBtn = Vue.component('PlayBtn', {
+    template: `<button @click="playMorse">Play!</button>`,
     props: ['result'],
     methods: {
         playMorse() {
@@ -13,10 +11,30 @@ const Result = Vue.component('Result', {
     }
 })
 
+/**
+ * The result of the most current translation
+ */
+const Result = Vue.component('Result', {
+    components: {
+        PlayBtn
+    },
+    template: `
+            <div v-if="result">
+                <p>{{ result.morse }}</p>
+                <small>{{ result.phrase }}</small>
+                <PlayBtn v-bind:result="result"></PlayBtn>
+            </div>`,
+    props: ['result']
+})
+
+/**
+ * Root component
+ */
 new Vue({
     el: '#app',
     components: {
-        Result
+        Result,
+        PlayBtn
     },
     data: {
         input: '',

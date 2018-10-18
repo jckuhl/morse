@@ -1,3 +1,6 @@
+/**
+ * Creates a Morse object containing both the original phrase and the translated phrase
+ */
 class Morse {
 
     constructor(phrase) {
@@ -5,14 +8,28 @@ class Morse {
         this.morse = Morse.toMorse(this.phrase);
     }
 
+    /**
+     * Returns the morse code representation
+     * @returns {string}
+     */
     getMorse() {
         return this.morse;
     }
 
+    /**
+     * Returns the plain text representation
+     * @returns {string}
+     */
     getPhrase() {
         return this.phrase;
     }
 
+    /**
+     * Returns an object containing the morse code definitions, or if a parameter is provided,
+     * returns the matching value
+     * @param {string} char
+     * @returns {object | string}
+     */
     static getMorse(char='') {
 
         const MORSE = {
@@ -33,8 +50,13 @@ class Morse {
         return char === '' ? MORSE : MORSE[char];
     }
 
+    /**
+     * Translates plaintext to morse code
+     * @param {string} word 
+     * @return {string} translated string
+     */
     static toMorse(word) {
-        const SEVENSPACES = '<pre>' + '&nbsp;'.repeat(7) + '</pre>';
+        const SEVENSPACES = '       ';
         if(!word.match(/[^a-bA-B0-9]+/)) {
             throw new Error('invalid string');
         }
@@ -44,6 +66,11 @@ class Morse {
         }).join('   ');
     }
 
+    /**
+     * Translates morse code into plaintext
+     * @param {string} morse 
+     * @returns {string} plaintext
+     */
     static fromMorse(morse) {
         const SEVENSPACES = '&nbsp;'.repeat(7);
         if(!morse.match(/[^*-\S]/)) {

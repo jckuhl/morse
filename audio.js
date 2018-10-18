@@ -1,4 +1,5 @@
 MORSE_AUDIO = {
+    // Source paths for the MP3 files
     dashanddot: {
         dash: './audio/Dash & Dot/Mountain Audio - Complete Morse Code Bundle - DASH.mp3',
         dot: './audio/Dash & Dot/Mountain Audio - Complete Morse Code Bundle - DOT.mp3',
@@ -48,11 +49,24 @@ MORSE_AUDIO = {
         eight: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 8.mp3',
         nine: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 9.mp3'
     },
+
+    /**
+     * Creates an <audio> element with the given source
+     * @param {string} source path to the appropriate mp3 file
+     * @returns {AudioNode}
+     */
     createAudio(source) {
         const audio = document.createElement('audio');
         audio.src = source;
         return audio;
     },
+
+    /**
+     * Creates an object containing both an array of <audio> objects and a method to play them.
+     * The array is based on matching the letters in the phrase to the appropriate morse code MP3 files
+     * @param {string} phrase 
+     * @returns {object} an object with the audio array and a playAll method
+     */
     createAudioArray(phrase) {
         return { 
             audio: phrase.toLowerCase().split('').map(char => {
@@ -85,13 +99,17 @@ MORSE_AUDIO = {
                     return this.createAudio(this.gaps.word);
                 }
             }),
+
+            /**
+             * Plays all the audio files, one after another, in the audio array.
+             */
             playAll() {
                 this.audio.forEach((a, i) => {
                     console.log(a);
                     if(i === 0) {
                         a.play();
                     } else {
-                        this.audio[i - 1].ended = ()=> { a.play(); }
+                        this.audio[i - 1].ended = a.play();
                     }
                 });
             }
