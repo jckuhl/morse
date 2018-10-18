@@ -1,0 +1,26 @@
+{
+  "name": "morse",
+  "version": "1.0.0",
+  "description": "morse code conver",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jckuhl/morse.git"
+  },
+  "keywords": [
+    "morse",
+    "code"
+  ],
+  "author": "Jonathan Kuhl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jckuhl/morse/issues"
+  },
+  "homepage": "https://github.com/jckuhl/morse#readme",
+  "dependencies": {
+    "vue": "^2.5.17"
+  }
+}
