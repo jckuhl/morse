@@ -1,4 +1,4 @@
-MORSE = {
+MORSE_AUDIO = {
     dashanddot: {
         dash: './audio/Dash & Dot/Mountain Audio - Complete Morse Code Bundle - DASH.mp3',
         dot: './audio/Dash & Dot/Mountain Audio - Complete Morse Code Bundle - DOT.mp3',
@@ -53,7 +53,41 @@ MORSE = {
         audio.src = source;
         return audio;
     },
-    playWord(word) {
-        
-    }
+    createAudioArray(phrase) {
+        return { 
+            audio: phrase.toLowerCase().split('').map(char => {
+                if(char.match(/([a-z])+/g)) {
+                    return this.createAudio(this.letters[char]);
+                } else if(char.match(/([0-9])+/g)) {
+                    switch(char) {
+                        case 0:
+                            return this.createAudio(this.numbers.zero);
+                        case 1:
+                            return this.createAudio(this.numbers.one);
+                        case 2:
+                            return this.createAudio(this.numbers.two);
+                        case 3:
+                            return this.createAudio(this.numbers.three);
+                        case 4:
+                            return this.createAudio(this.numbers.four);
+                        case 5:
+                            return this.createAudio(this.numbers.five);
+                        case 6:
+                            return this.createAudio(this.numbers.six);
+                        case 7:
+                            return this.createAudio(this.numbers.seven);
+                        case 8:
+                            return this.createAudio(this.numbers.eight);
+                        case 9:
+                            return this.createAudio(this.numbers.nine);
+                    }
+                } else if(char === ' ') {
+                    return this.createAudio(this.gaps.word);
+                }
+            }),
+            playAll() {
+                this.audio.forEach(a => a.play());
+            }
+        }   
+    },
 }
