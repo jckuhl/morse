@@ -19,13 +19,13 @@
         <input type="text" placeholder="Enter any sentence" v-model="input">
         <button @click="translate">Translate!</button>
 
-        <Result :result="output"></Result>
+        <result :result="output"></result>
 
         <ul>
             <li v-for="entry of history">
                 <p>{{ entry.morse }}</p>
                 <p>{{ entry.phrase }}</p>
-                <PlayBtn :result="output"></PlayBtn>
+                <play-btn :result="entry"></play-btn>
                 <button>Delete</button>
             </li>
         </ul>

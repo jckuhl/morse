@@ -109,7 +109,7 @@ MORSE_AUDIO = {
                     if(i === 0) {
                         a.play();
                     } else {
-                        this.audio[i - 1].ended = a.play();
+                        this.audio[i - 1].ended = () => a.play();
                     }
                 });
             }
