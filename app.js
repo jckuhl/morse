@@ -27,12 +27,21 @@ new Vue({
         translate() {
             try {
                 this.output = new Morse(this.input);
-                this.history.push(this.output);
+                this.history.unshift(this.output);
+                localStorage.setItem('morse', JSON.stringify(this.history));
             } catch {
                 // display an error
             } finally {
-                //this.output = '';
+                this.input = '';
             }
+        },
+        clearHistory() {
+            this.history = [];
+            localStorage.removeItem('morse');
         }
+    },
+    created() {
+        const history = JSON.parse(localStorage.getItem('morse'));
+        this.history = history === null ? [] : history;
     }
 });

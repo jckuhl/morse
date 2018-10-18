@@ -21,6 +21,15 @@
 
         <Result :result="output"></Result>
 
+        <ul v-if="history">
+            <li v-for="entry of history">
+                <p>{{ entry.morse }}</p>
+                <p>{{ entry.phrase }}</p>
+                <button>Play!</button>
+                <button>Delete</button>
+            </li>
+        </ul>
+        <button @click="clearHistory">Clear History</button>
     </div>
 
     <!-- development version, includes helpful console warnings -->

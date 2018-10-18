@@ -34,7 +34,7 @@ class Morse {
     }
 
     static toMorse(word) {
-        const SEVENSPACES = '       ';
+        const SEVENSPACES = '<pre>' + '&nbsp;'.repeat(7) + '</pre>';
         if(!word.match(/[^a-bA-B0-9]+/)) {
             throw new Error('invalid string');
         }
@@ -45,7 +45,7 @@ class Morse {
     }
 
     static fromMorse(morse) {
-        const SEVENSPACES = '       ';
+        const SEVENSPACES = '&nbsp;'.repeat(7);
         if(!morse.match(/[^*-\S]/)) {
             throw new Error('invalid string');
         }
