@@ -56,7 +56,7 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        const SEVENSPACES = '       ';
+        const SEVENSPACES = ' '.repeat(7);;
         if(!word.match(/[^a-bA-B0-9]+/)) {
             throw new Error('invalid string');
         }
@@ -72,13 +72,13 @@ class Morse {
      * @returns {string} plaintext
      */
     static fromMorse(morse) {
-        const SEVENSPACES = '&nbsp;'.repeat(7);
+        const SEVENSPACES = ' '.repeat(7);
         if(!morse.match(/[^*-\S]/)) {
             throw new Error('invalid string');
         }
 
         return morse.split(SEVENSPACES).map(word => {
-            return word.split('   ').map(char => {
+            return word.split(' '.repeat(3)).map(char => {
                 let letter;
                 Object.entries(this.getMorse()).forEach(([k, v])=> {
                     if(v === char) {

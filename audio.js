@@ -105,11 +105,10 @@ MORSE_AUDIO = {
              */
             playAll() {
                 this.audio.forEach((a, i) => {
-                    console.log(a);
                     if(i === 0) {
                         a.play();
                     } else {
-                        this.audio[i - 1].ended = () => a.play();
+                        this.audio[i - 1].addEventListener('ended', ()=> a.play());
                     }
                 });
             }

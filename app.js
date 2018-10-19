@@ -6,7 +6,6 @@ const PlayBtn = Vue.component('PlayBtn', {
     props: ['result'],
     methods: {
         playMorse() {
-            console.log(this.result.phrase);
             MORSE_AUDIO.createAudioArray(this.result.phrase).playAll();
         }
     }
