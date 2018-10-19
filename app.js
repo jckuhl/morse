@@ -9,18 +9,24 @@ const PlayBtn = Vue.component('PlayBtn', {
             MORSE_AUDIO.createAudioArray(this.result.phrase).playAll();
         }
     }
-})
+});
+
+const ErrorMsg = Vue.component('ErrorMsg', {
+    template: `<div class="error">
+        <p>Please remove all punctuation and special characters &nbsp;<span>X</span></p>
+    </div>`
+}) 
 
 /**
  * The result of the most current translation
  */
-const Result = Vue.component('Result', {
+const ResultBox = Vue.component('ResultBox', {
     components: {
         PlayBtn
     },
     template: `
             <div v-if="result">
-                <p>{{ result.morse }}</p>
+                <p><pre>{{ result.morse }}</pre></p>
                 <small>{{ result.phrase }}</small>
                 <PlayBtn v-bind:result="result"></PlayBtn>
             </div>`,
@@ -33,22 +39,28 @@ const Result = Vue.component('Result', {
 new Vue({
     el: '#app',
     components: {
-        Result,
-        PlayBtn
+        ResultBox,
+        PlayBtn,
+        ErrorMsg
     },
     data: {
         input: '',
         output: null,
-        history: []
+        history: [],
+        error: false
     },
     methods: {
         translate() {
             try {
+                if(this.output != null) {
+                    this.history.unshift(this.output);
+                }
                 this.output = new Morse(this.input);
-                this.history.unshift(this.output);
+                console.log(this.output);
                 localStorage.setItem('morse', JSON.stringify(this.history));
+                this.error = false;
             } catch {
-                // display an error
+                this.error = true;
             } finally {
                 this.input = '';
             }

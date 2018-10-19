@@ -56,13 +56,12 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        const SEVENSPACES = ' '.repeat(7);;
         if(!word.match(/[^a-bA-B0-9]+/)) {
             throw new Error('invalid string');
         }
         
         return word.toLowerCase().split('').map(char => {
-            return char === ' ' ? SEVENSPACES : this.getMorse(char);
+            return char === ' ' ? Morse.SEVENSPACES : this.getMorse(char);
         }).join('   ');
     }
 
@@ -72,12 +71,11 @@ class Morse {
      * @returns {string} plaintext
      */
     static fromMorse(morse) {
-        const SEVENSPACES = ' '.repeat(7);
         if(!morse.match(/[^*-\S]/)) {
             throw new Error('invalid string');
         }
 
-        return morse.split(SEVENSPACES).map(word => {
+        return morse.split(Morse.SEVENSPACES).map(word => {
             return word.split(' '.repeat(3)).map(char => {
                 let letter;
                 Object.entries(this.getMorse()).forEach(([k, v])=> {
@@ -90,3 +88,5 @@ class Morse {
         }).join(' ');
     }
 }
+
+Morse.SEVENSPACES = ' '.repeat(7);  // TODO: needs to be updated with something HTML won't squash

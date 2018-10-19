@@ -1,4 +1,4 @@
-MORSE_AUDIO = {
+const MORSE_AUDIO = {
     // Source paths for the MP3 files
     dashanddot: {
         dash: './audio/Dash & Dot/Mountain Audio - Complete Morse Code Bundle - DASH.mp3',

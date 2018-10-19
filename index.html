@@ -10,16 +10,18 @@
 <body>
     <header>
         <h1>Morse Code Converter!</h1>
-        <a href="https://github.com/jckuhl/morse" class="right">View on Github</a>
+        <a href="https://github.com/jckuhl/morse" class="right" target="_blank">View on Github</a>
     </header>
 
-    <div id="app">
+    <div id="app" class="container">
         <h2>Enter a phrase!</h2>
         <p>Please disregard all punctuation and use only alphabetical and numeric characters.</p>
         <input type="text" placeholder="Enter any sentence" v-model="input">
         <button @click="translate">Translate!</button>
 
-        <result :result="output"></result>
+        <error-msg v-if="error"></error-msg>
+
+        <result-box :result="output"></result-box>
 
         <ul>
             <li v-for="entry of history">
@@ -31,6 +33,11 @@
         </ul>
         <button @click="clearHistory">Clear History</button>
     </div>
+
+    <footer>
+        <p>A special thanks to Envato Market for the collection of Morse code audio clips</p>
+        <p>Check them out at <a href="https://themeforest.net/">themeforest.net</a></p>
+    </footer>
 
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

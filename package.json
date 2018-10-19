@@ -20,7 +20,5 @@
     "url": "https://github.com/jckuhl/morse/issues"
   },
   "homepage": "https://github.com/jckuhl/morse#readme",
-  "dependencies": {
-    "vue": "^2.5.17"
-  }
+  "dependencies": {}
 }
