@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
+
 body {
+    font-family: 'Cutive Mono', monospace;
     background: lightblue;
     margin: 0 0;
     padding: 0 0;
@@ -18,8 +21,15 @@ header {
 .container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     vertical-align: -webkit-baseline-middle;
     align-content: center;
+    width: 50%;
+    margin: 0.5rem auto;
+    padding: 0.25rem;
+    background: white;
+    border: 2px solid darkblue;
+    border-radius: 10px;
 }
 
 pre {

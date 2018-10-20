@@ -56,9 +56,9 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        if(!word.match(/[^a-bA-B0-9]+/)) {
-            throw new Error('invalid string');
-        }
+        // if(!word.match(/[^a-bA-B0-9]+/)) {
+        //     throw new Error('invalid string');
+        // }
         
         return word.toLowerCase().split('').map(char => {
             return char === ' ' ? Morse.SEVENSPACES : this.getMorse(char);
@@ -89,4 +89,4 @@ class Morse {
     }
 }
 
-Morse.SEVENSPACES = ' '.repeat(7);  // TODO: needs to be updated with something HTML won't squash
+Morse.SEVENSPACES = ' '.repeat(7);

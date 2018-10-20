@@ -47,27 +47,42 @@ new Vue({
         input: '',
         output: null,
         history: [],
-        error: false
+        error: false,
+        idset: new Set()
     },
     methods: {
         translate() {
+            const getId = ()=> {
+                let id;
+                do {
+                    id = Math.floor(Math.random() * 1000000);
+                    if(!this.idset.has(id)) {
+                        this.idset.add(id);
+                    }
+                } while(!this.idset.has(id));
+                return id;
+            };
             try {
-                if(this.output != null) {
-                    this.history.unshift(this.output);
-                }
+                let id = getId();
                 this.output = new Morse(this.input);
-                console.log(this.output);
+                this.history.unshift({ output: this.output, id: id});
                 localStorage.setItem('morse', JSON.stringify(this.history));
                 this.error = false;
-            } catch {
+            } catch(error) {
+                console.error(error);
                 this.error = true;
             } finally {
                 this.input = '';
+                console.log(this.history);
             }
         },
         clearHistory() {
             this.history = [];
             localStorage.removeItem('morse');
+        },
+        deleteItem(index) {
+            this.history = this.history.splice(index);
+            localStorage.setItem('morse', JSON.stringify(this.history));
         }
     },
     created() {

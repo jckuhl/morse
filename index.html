@@ -17,18 +17,18 @@
         <h2>Enter a phrase!</h2>
         <p>Please disregard all punctuation and use only alphabetical and numeric characters.</p>
         <input type="text" placeholder="Enter any sentence" v-model="input">
-        <button @click="translate">Translate!</button>
+        <button @click="translate" :disabled="input === ''">Translate!</button>
 
         <error-msg v-if="error"></error-msg>
 
         <result-box :result="output"></result-box>
 
         <ul>
-            <li v-for="entry of history">
-                <p>{{ entry.morse }}</p>
-                <p>{{ entry.phrase }}</p>
-                <play-btn :result="entry"></play-btn>
-                <button>Delete</button>
+            <li v-for="(entry, index) of history" :key="entry.id" v-if="index != 0">
+                <p>{{ entry.output.morse }}</p>
+                <p>{{ entry.output.phrase }}</p>
+                <play-btn :result="entry.output"></play-btn>
+                <button @click="()=> deleteItem(entry.id)">Delete</button>
             </li>
         </ul>
         <button @click="clearHistory">Clear History</button>
