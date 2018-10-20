@@ -1,4 +1,9 @@
 /**
+ * Contains the Vue components controlling the UI
+ * @author Jonathan Kuhl
+ */
+
+/**
  * Play button to play the Morse code sound
  */
 const PlayBtn = Vue.component('PlayBtn', {
@@ -6,6 +11,7 @@ const PlayBtn = Vue.component('PlayBtn', {
     props: ['result'],
     methods: {
         playMorse() {
+            // this is the most Java-esque line of JavaScript I've ever written
             MORSE_AUDIO.createAudioArray(this.result.phrase).playAll();
         }
     }
@@ -13,8 +19,9 @@ const PlayBtn = Vue.component('PlayBtn', {
 
 const ErrorMsg = Vue.component('ErrorMsg', {
     template: `<div class="error">
-        <p>Please remove all punctuation and special characters &nbsp;<span>X</span></p>
-    </div>`
+        <p>The following characters are invalid: {{ error }}. &nbsp;<span>X</span></p>
+    </div>`,
+    props: ['error']
 }) 
 
 /**
@@ -64,27 +71,39 @@ new Vue({
             };
             try {
                 let id = getId();
-                this.output = new Morse(this.input);
+                this.output = new Morse(this.input.trim());
                 this.history.unshift({ output: this.output, id: id});
                 localStorage.setItem('morse', JSON.stringify(this.history));
-                this.error = false;
-            } catch(error) {
-                console.error(error);
-                this.error = true;
-            } finally {
+                this.error = null;
                 this.input = '';
-                console.log(this.history);
-            }
+            } catch(error) {
+                // splitting by a ":" puts the erroneous characters at index 2.
+                this.error = error.toString().split(':')[2];
+            } 
         },
         clearHistory() {
             this.history = [];
             localStorage.removeItem('morse');
         },
-        deleteItem(index) {
-            this.history = this.history.splice(index);
-            localStorage.setItem('morse', JSON.stringify(this.history));
+        deleteItem(id) {
+            let index = -1;
+            for(let i = 0; i < this.history.length; i++) {
+                if(this.history[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+            this.history.splice(index);
+
+            // if deleting the object sets length to zero, simply remove it from LS.
+            if(this.history.length > 0) {
+                localStorage.setItem('morse', JSON.stringify(this.history));
+            } else {
+                localStorage.removeItem('morse');
+            }
         }
     },
+    // On creation, check if there's data in LS.  If there is, set history to it, else set an []
     created() {
         const history = JSON.parse(localStorage.getItem('morse'));
         this.history = history === null ? [] : history;

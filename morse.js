@@ -1,5 +1,6 @@
 /**
  * Creates a Morse object containing both the original phrase and the translated phrase
+ * @author Jonathan Kuhl
  */
 class Morse {
 
@@ -56,9 +57,10 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        // if(!word.match(/[^a-bA-B0-9]+/)) {
-        //     throw new Error('invalid string');
-        // }
+        let matches = word.toString().match(/[^a-zA-Z0-9]\W+/);
+        if(matches) {
+            throw new Error('invalid string: ' + matches.toString());
+        }
         
         return word.toLowerCase().split('').map(char => {
             return char === ' ' ? Morse.SEVENSPACES : this.getMorse(char);

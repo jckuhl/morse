@@ -1,3 +1,9 @@
+/**
+ * MORSE_AUDIO contains the paths for all the mp3 files as well as
+ * methods for creating audio elements, and creating an array of audio elements
+ * based on an input phrase, and a method to play all the audio one after another
+ * @author Jonathan Kuhl
+ */
 const MORSE_AUDIO = {
     // Source paths for the MP3 files
     dashanddot: {
@@ -38,16 +44,16 @@ const MORSE_AUDIO = {
         z: './audio/Letters/Mountain Audio - Complete Morse Code Bundle - Z.mp3'
     },
     numbers: {
-        zero: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 0.mp3',
-        one: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 1.mp3',
-        two: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 2.mp3',
-        three: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 3.mp3',
-        four: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 4.mp3',
-        five: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 5.mp3',
-        six: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 6.mp3',
-        seven: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 7.mp3',
-        eight: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 8.mp3',
-        nine: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 9.mp3'
+        0: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 0.mp3',
+        1: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 1.mp3',
+        2: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 2.mp3',
+        3: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 3.mp3',
+        4: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 4.mp3',
+        5: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 5.mp3',
+        6: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 6.mp3',
+        7: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 7.mp3',
+        8: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 8.mp3',
+        9: './audio/Numbers/Mountain Audio - Complete Morse Code Bundle - 9.mp3'
     },
 
     /**
@@ -73,28 +79,7 @@ const MORSE_AUDIO = {
                 if(char.match(/([a-z])+/g)) {
                     return this.createAudio(this.letters[char]);
                 } else if(char.match(/([0-9])+/g)) {
-                    switch(char) {
-                        case 0:
-                            return this.createAudio(this.numbers.zero);
-                        case 1:
-                            return this.createAudio(this.numbers.one);
-                        case 2:
-                            return this.createAudio(this.numbers.two);
-                        case 3:
-                            return this.createAudio(this.numbers.three);
-                        case 4:
-                            return this.createAudio(this.numbers.four);
-                        case 5:
-                            return this.createAudio(this.numbers.five);
-                        case 6:
-                            return this.createAudio(this.numbers.six);
-                        case 7:
-                            return this.createAudio(this.numbers.seven);
-                        case 8:
-                            return this.createAudio(this.numbers.eight);
-                        case 9:
-                            return this.createAudio(this.numbers.nine);
-                    }
+                    return this.createAudio(this.numbers[char]);
                 } else if(char === ' ') {
                     return this.createAudio(this.gaps.word);
                 }
@@ -113,5 +98,5 @@ const MORSE_AUDIO = {
                 });
             }
         }   
-    },
+    }
 }
