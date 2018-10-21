@@ -36,8 +36,15 @@ const ResultBox = Vue.component('ResultBox', {
                 <p><pre>{{ result.morse }}</pre></p>
                 <small>{{ result.phrase }}</small>
                 <PlayBtn v-bind:result="result"></PlayBtn>
+                <button ref="stopbtn" @click="stopAudio">Stop</button>
             </div>`,
-    props: ['result']
+    props: ['result'],
+    methods: {
+        stopAudio() {
+            const stop = new CustomEvent('morse-stop', { bubbles : true});
+            this.$refs.stopbtn.dispatchEvent(stop);
+        }
+    }
 })
 
 /**
@@ -55,7 +62,8 @@ new Vue({
         output: null,
         history: [],
         error: false,
-        idset: new Set()
+        idset: new Set(),
+        stopEvent: new Event('morse-stop')
     },
     methods: {
         translate() {

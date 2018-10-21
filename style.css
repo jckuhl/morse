@@ -39,3 +39,13 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+
+.form-elem {
+    width: 75%;
+    font-size: 1.25rem;
+}
+
+.translate-btn {
+    color: white;
+    background: dodgerblue;
+}

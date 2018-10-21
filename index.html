@@ -28,8 +28,12 @@
     <section id="app" class="container">
         <h2>Enter a phrase!</h2>
         <p>Please disregard all punctuation and use only alphabetical and numeric characters.</p>
-        <input type="text" placeholder="Enter any sentence" v-model="input">
-        <button @click="translate" :disabled="input.trim().length === 0">Translate!</button>
+        <input type="text" placeholder="Enter any sentence" v-model="input" class="form-elem">
+        <button class="form-elem translate-btn"
+            @click="translate" 
+            :disabled="input.trim().length === 0">
+            Translate!
+        </button>
 
         <error-msg v-if="error" :error="error"></error-msg>
 
@@ -50,6 +54,8 @@
         <p>A special thanks to Envato Market for the collection of Morse code audio clips</p>
         <p>Check them out at <a href="https://themeforest.net/">themeforest.net</a></p>
     </footer>
+
+    <div id="audio"></div>
 
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

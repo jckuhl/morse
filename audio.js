@@ -64,6 +64,8 @@ const MORSE_AUDIO = {
     createAudio(source) {
         const audio = document.createElement('audio');
         audio.src = source;
+        audio.addEventListener('morse-stop', ()=> console.log('stahp!'));
+        document.getElementById('audio').appendChild(audio);
         return audio;
     },
 
