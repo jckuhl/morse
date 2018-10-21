@@ -78,7 +78,7 @@ new Vue({
                 this.input = '';
             } catch(error) {
                 // splitting by a ":" puts the erroneous characters at index 2.
-                this.error = error.toString().split(':')[2];
+                this.error = error.toString().split(':')[2].trim();
             } 
         },
         clearHistory() {

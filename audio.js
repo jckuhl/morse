@@ -99,4 +99,12 @@ const MORSE_AUDIO = {
             }
         }   
     }
-}
+};
+
+(function() {
+    [document.getElementById('dash'), document.getElementById('dot')].forEach(audioLink => {
+        audioLink.addEventListener('click', ()=> {
+            MORSE_AUDIO.createAudio(MORSE_AUDIO.dashanddot[audioLink.id]).play();
+        });
+    });
+})();
