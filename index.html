@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Converts plaintext to morse code and provides an audio example">
     <title>Morse Code Converter</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mediaq.css">
@@ -11,7 +12,7 @@
 <body>
     <header>
         <h1>Morse Code Converter!</h1>
-        <a href="https://github.com/jckuhl/morse" class="right" target="_blank">View on Github</a>
+        <a href="https://github.com/jckuhl/morse" class="right" target="_blank" rel="noopener">View on Github</a>
     </header>
 
     <noscript>This page requires JavaScript to function</noscript>
@@ -24,28 +25,24 @@
         <p>You can listen to a a dot <a href="javascript:;" id="dot">here</a> and a dash <a href="javascript:;" id="dash">here.</a></p>
         <p>The telegram was the primary means of long distance communication for much of the 19<sup>th</sup> century and is still in limited use today.  The telegram was widely used during the American Civil War so generals could keep in touch with their leaders in Washington D.C. or Richmond Virginia.  Now most of it has been replaced by cell phones and the internet.  However you'll still find Morse code in the military or in aviation.  As an example, VOR-DME stations are still used as navigational aids, and they utilize Morse code.  The technology is however fading out, and even VOR systems will be wholly replaced by GPS systems in the near future.  Navy signalmen also use Morse code to flash light signals to other ships.</p>
         <p>Here you can play with that legacy technology.  If you'd like, you can enter something into the text field below.  Hit the translate button and it will produce the Morse code equivalent.</p>
-        <p>You can read more about Samuel Morse and Morse Code here:
-        &nbsp;
-        <a href="https://en.wikipedia.org/wiki/Samuel_Morse" target="_blank">Samuel Morse</a>
-        &nbsp;
-        <a href="https://en.wikipedia.org/wiki/Morse_code" target="_blank">Morse Code</a>
+        <p>You can read more about Samuel Morse and Morse Code here: 
+        <a href="https://en.wikipedia.org/wiki/Samuel_Morse" target="_blank" rel="noopener">Samuel Morse,</a> <a href="https://en.wikipedia.org/wiki/Morse_code" target="_blank" rel="noopener">Morse Code</a>
         </p>
     </section>
 
     <section id="app" class="container">
-        <h2>Enter a phrase!</h2>
+        <h2 id="enter-a-phrase">Enter a phrase!</h2>
         <p>Please disregard all punctuation and use only alphabetical and numeric characters.</p>
-        <label for="morseInput">Enter any sentence</label>
         <input type="text" 
             id="morseInput" 
             placeholder="Enter any sentence" 
             v-model="input" 
             class="form-elem" 
             @keyup.enter="()=> { if(!isDisabled) { translate() }}"
-            maxlength="50">
+            maxlength="50"
+            aria-labelledby="enter-a-phrase">
         <button class="form-elem translate-btn"
             :class="{ disabled : isDisabled }"
-            role="translate-button"
             @click="translate" 
             :disabled="isDisabled">
             Translate!
@@ -58,7 +55,7 @@
         <h3>Previous entries:</h3>
         <p>These are saved in your browser's storage if you want to come back to them.</p>
 
-        <ul role="history-list">
+        <ul>
             <li v-for="(entry, index) of history" :key="entry.id" role="history-item">
                 <p><pre>{{ entry.output.morse | morse }}</pre></p>
                 <p>{{ entry.output.phrase }}</p>
@@ -67,6 +64,7 @@
                 <hr>
             </li>
         </ul>
+
         <div class="btn-container">
             <button @click="clearHistory" class="clear-btn">Clear History</button>
             <p>This will remove your history from your browser's storage</p>
@@ -75,10 +73,10 @@
 
     <footer>
         <p>A special thanks to Envato Market for the collection of Morse code audio clips</p>
-        <p>Check them out at <a href="https://themeforest.net/">themeforest.net</a></p>
+        <p>Check them out at <a href="https://themeforest.net/" target="_blank" rel="noopener">themeforest.net</a></p>
     </footer>
 
-    <div id="audio"></div>
+    <!-- <div id="audio"></div> -->
 
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

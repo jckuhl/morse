@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background: dodgerblue;
+    background: slateblue;
     padding: 0.25em;
     display: flex;
     justify-content: space-between;
@@ -29,7 +29,7 @@ header {
     margin: 0.5rem auto;
     padding: 0.25rem;
     background: white;
-    border: 2px solid darkblue;
+    border: 2px solid slateblue;
     border-radius: 10px;
 }
 
@@ -52,7 +52,7 @@ pre {
 .translate-btn {
     color: white;
     font-weight: bold;
-    background: dodgerblue;
+    background: slateblue;
 }
 
 .btn-container {
@@ -62,7 +62,7 @@ pre {
 
 .clear-btn {
     font-family: 'Cutive Mono', monospace;
-    background-color: dodgerblue;
+    background-color: slateblue;
     color: white;
     font-size: 1rem;
     display: inline-block;
@@ -111,4 +111,12 @@ h2 {
 label {
     visibility: hidden;
     position: absolute;
+}
+
+header a {
+    color: white;
+}
+
+header a:visited {
+    color: lightgray;
 }
