@@ -5,8 +5,6 @@
  * @author Jonathan Kuhl
  */
 
-'use strict';
-
 const MORSE_AUDIO = {
     // Source paths for the MP3 files
     dashanddot: {
@@ -106,7 +104,7 @@ const MORSE_AUDIO = {
             stopAll() {
                 this.audio.forEach(a => a.pause());
             }
-        }   
+        };   
     }
 };
 

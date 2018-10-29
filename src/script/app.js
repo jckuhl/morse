@@ -3,15 +3,13 @@
  * @author Jonathan Kuhl
 */
 
-'use strict';
-
 /**
  * Filter for displaying morse code
  * This replaces the basic asterisk/hyphen with symbols that display better
  */
 Vue.filter('morse', (value)=> {
     if(!value || typeof value !== 'string') {
-        return ''
+        return '';
     }
     return value.split('').map(dotdash=> {
         // dotdash can only be one of the three symbols below:
@@ -19,7 +17,7 @@ Vue.filter('morse', (value)=> {
             '*': '•',
             '-': '⁃',
             ' ': ' '
-        }
+        };
         return symbols[dotdash];
     }).join('');
 });
@@ -100,7 +98,7 @@ const ErrorMsg = Vue.component('ErrorMsg', {
             this.$emit('close-error');
         }
     }
-}) 
+});
 
 /**
  * Root component
@@ -141,7 +139,7 @@ new Vue({
                 let id = getId();
                 const text = new Morse(this.input.trim());
                 const audio = MORSE_AUDIO.createAudioArray(text.phrase);
-                this.output = { text , audio }
+                this.output = { text , audio };
                 this.history.unshift({ output: this.output, id: id});
                 localStorage.setItem('morse', JSON.stringify(this.history));
                 this.error = null;

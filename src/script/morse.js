@@ -3,9 +3,6 @@
  * @author Jonathan Kuhl
  */
 
-
-'use strict';
-
 class MorseError extends Error {
     constructor(message) {
         super(message);
