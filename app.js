@@ -32,14 +32,55 @@ const PlayBtn = Vue.component('PlayBtn', {
     props: ['result'],
     methods: {
         playMorse() {
-            if(!Object.getOwnPropertyNames(this.result.audio).includes('playAll')) {
+            this.$emit('stop-all');
+            const playAllNotAFunction = ()=> !Object.getOwnPropertyNames(this.result.audio).includes('playAll');
+            // if pulled from LS, JSON nuked the playAll method, so we'll have to recreate it
+            if(playAllNotAFunction) {
                 this.result.audio = MORSE_AUDIO.createAudioArray(this.result.text.phrase);
             }
             this.result.audio.playAll();
         }
+    }
+});
+
+const StopBtn = Vue.component('StopBtn', {
+    template: `<button @click="stopMorse">Stop</button>`,
+    props: ['result', 'id'],
+    methods: {
+        // stopMorse() {
+        //     const stopAllNotAFunction = ()=> !Object.getOwnPropertyNames(this.result.audio).includes('stopAll');
+        //     if(stopAllNotAFunction) {
+        //         this.result.audio = MORSE_AUDIO.createAudioArray(this.result.text.phrase);
+        //     }
+        //     this.result.audio.stopAll();
+        // }
+        stopMorse() {
+            this.$emit('stop-audio', this.id);
+        }
+    }
+});
+
+/**
+ * The result of the most current translation
+ */
+
+//<button ref="stopbtn" @click="stopAudio">Stop</button>
+const ResultBox = Vue.component('ResultBox', {
+    components: {
+        PlayBtn
     },
-    created() {
-        console.log(Object.getOwnPropertyNames(this.result.audio));
+    template: `
+            <div v-if="result">
+                <p>Translation: <pre>{{ result.text.morse | morse }}</pre></p>
+                <p>Original: <small>{{ result.text.phrase }}</small></p>
+                <PlayBtn v-bind:result="result" @stop-all="$emit('stop-all')"></PlayBtn>
+                <StopBtn v-bind:result="result" v-bind:id="-1" @stop-audio="stopAudio"></StopBtn>
+            </div>`,
+    props: ['result'],
+    methods: {
+        stopAudio() {
+            this.result.audio.stopAll();
+        }
     }
 });
 
@@ -56,28 +97,6 @@ const ErrorMsg = Vue.component('ErrorMsg', {
         }
     }
 }) 
-
-/**
- * The result of the most current translation
- */
-const ResultBox = Vue.component('ResultBox', {
-    components: {
-        PlayBtn
-    },
-    template: `
-            <div v-if="result">
-                <p><pre>{{ result.text.morse | morse }}</pre></p>
-                <small>{{ result.text.phrase }}</small>
-                <PlayBtn v-bind:result="result"></PlayBtn>
-                <button ref="stopbtn" @click="stopAudio">Stop</button>
-            </div>`,
-    props: ['result'],
-    methods: {
-        stopAudio() {
-            this.result.audio.stopAll();
-        }
-    }
-})
 
 /**
  * Root component
@@ -148,6 +167,18 @@ new Vue({
         },
         closeErrorMsg() {
             this.error = null;
+        },
+        stopAudio(id) {
+            let audio = this.history.filter(entry => entry.id === id)[0].output.audio;
+            if(Object.getOwnPropertyNames(audio).includes('stopAll')) {
+                audio.stopAll();
+            }
+            // else it isn't playing and therefore doesn't need to be stopped.
+        },
+        stopAllAudio() {
+            this.history.forEach(entry => {
+                this.stopAudio(entry.id);
+            });
         }
     },
     // On creation, check if there's data in LS.  If there is, set history to it, else set an []
