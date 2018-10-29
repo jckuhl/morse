@@ -9,7 +9,6 @@ body {
 
 header {
     background: dodgerblue;
-    width: 100%;
     padding: 0.25em;
     display: flex;
     justify-content: space-between;
@@ -26,7 +25,7 @@ header {
     flex-direction: column;
     vertical-align: -webkit-baseline-middle;
     align-content: center;
-    width: 50%;
+    width: 65%;
     margin: 0.5rem auto;
     padding: 0.25rem;
     background: white;
@@ -110,5 +109,6 @@ h2 {
 }
 
 label {
-    display: none;
+    visibility: hidden;
+    position: absolute;
 }

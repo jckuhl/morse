@@ -1,7 +1,9 @@
 /**
  * Contains the Vue components controlling the UI
  * @author Jonathan Kuhl
- */
+*/
+
+'use strict';
 
 /**
  * Filter for displaying morse code
@@ -12,6 +14,7 @@ Vue.filter('morse', (value)=> {
         return ''
     }
     return value.split('').map(dotdash=> {
+        // dotdash can only be one of the three symbols below:
         const symbols = {
             '*': '•',
             '-': '⁃',
@@ -37,7 +40,7 @@ const PlayBtn = Vue.component('PlayBtn', {
 
 const ErrorMsg = Vue.component('ErrorMsg', {
     template: `<div class="error">
-        <p>The following characters are invalid: {{ error }}. &nbsp;
+        <p>The following characters are invalid: {{ error }} &nbsp;
             <button class="close" @click="close">&times;</button>
         </p>
     </div>`,

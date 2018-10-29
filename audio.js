@@ -4,6 +4,9 @@
  * based on an input phrase, and a method to play all the audio one after another
  * @author Jonathan Kuhl
  */
+
+'use strict';
+
 const MORSE_AUDIO = {
     // Source paths for the MP3 files
     dashanddot: {
@@ -64,8 +67,8 @@ const MORSE_AUDIO = {
     createAudio(source) {
         const audio = document.createElement('audio');
         audio.src = source;
-        audio.addEventListener('morse-stop', ()=> console.log('stahp!'));
-        document.getElementById('audio').appendChild(audio);
+        // audio.addEventListener('morse-stop', ()=> console.log('stahp!'));
+        // document.getElementById('audio').appendChild(audio);
         return audio;
     },
 

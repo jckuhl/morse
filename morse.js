@@ -2,6 +2,10 @@
  * Creates a Morse object containing both the original phrase and the translated phrase
  * @author Jonathan Kuhl
  */
+
+
+'use strict';
+
 class Morse {
 
     constructor(phrase) {
@@ -46,7 +50,7 @@ class Morse {
             // Numbers
             1: '* - - - -', 2: '* * - - -', 3: '* * * - -', 4: '* * * * -',
             5: '* * * * *', 6: '- * * * *', 7: '- - * * *', 8: '- - - * *',
-            9: '- - - *',  10: '- - - - -'
+            9: '- - - - *', 10: '- - - - -'
         };
         return char === '' ? MORSE : MORSE[char];
     }
@@ -57,14 +61,14 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        let matches = word.toString().match(/[^a-zA-Z0-9\s]+/g);
+        const matches = word.toString().match(/[^a-zA-Z0-9\s]+/g);
         if(matches) {
             throw new Error('invalid string: ' + matches.toString());
         }
         
         return word.toLowerCase().split('').map(char => {
             return char === ' ' ? Morse.SEVENSPACES : this.getMorse(char);
-        }).join('   ');
+        }).join(' '.repeat(3));
     }
 
     /**
