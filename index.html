@@ -52,8 +52,10 @@
 
         <result-box :result="output"></result-box>
 
-        <h3>Previous entries:</h3>
-        <p>These are saved in your browser's storage if you want to come back to them.</p>
+        <div v-if="history.length !== 0">
+            <h3>Previous entries:</h3>
+            <p>These are saved in your browser's storage if you want to come back to them.</p>
+        </div>
 
         <ul>
             <li v-for="(entry, index) of history" :key="entry.id" role="history-item">
@@ -80,9 +82,10 @@
     <!-- <div id="audio"></div> -->
 
     <!-- development version, includes helpful console warnings -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="audio.js"></script>
-    <script src="morse.js"></script>
-    <script src="app.js" type="module"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./dist/app.min.js"></script>
 </body>
 </html>

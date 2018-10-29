@@ -1,4 +1,5 @@
 /audio
 /node_modules
+/dist
 
 .DS_store

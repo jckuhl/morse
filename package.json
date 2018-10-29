@@ -20,5 +20,10 @@
     "url": "https://github.com/jckuhl/morse/issues"
   },
   "homepage": "https://github.com/jckuhl/morse#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0"
+  }
 }
