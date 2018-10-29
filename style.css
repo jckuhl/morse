@@ -72,6 +72,7 @@ pre {
 
 .disabled {
     background: grey !important;
+    cursor: not-allowed;
 }
 
 .close {
@@ -98,10 +99,16 @@ h2 {
 }
 
 .close {
+    border: none;
+    background: none;
     cursor: pointer;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
 }
 
 .close:hover {
     color: red;
+}
+
+label {
+    display: none;
 }

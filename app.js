@@ -4,6 +4,20 @@
  */
 
 /**
+ * Filter for displaying morse code
+ * This replaces the basic asterisk/hyphen with symbols that display better
+ */
+Vue.filter('morse', (value)=> {
+    if(!value || typeof value !== 'string') {
+        return ''
+    }
+    return value.split('').map(dotdash=> {
+        return dotdash === '*' ? '•' :
+                        dotdash === '-' ? '⁃' : dotdash; 
+    }).join('');
+});
+
+/**
  * Play button to play the Morse code sound
  */
 const PlayBtn = Vue.component('PlayBtn', {
@@ -20,7 +34,7 @@ const PlayBtn = Vue.component('PlayBtn', {
 const ErrorMsg = Vue.component('ErrorMsg', {
     template: `<div class="error">
         <p>The following characters are invalid: {{ error }}. &nbsp;
-            <span class="close" @click="close">&times;</span>
+            <button class="close" @click="close">&times;</button>
         </p>
     </div>`,
     props: ['error'],
@@ -40,7 +54,7 @@ const ResultBox = Vue.component('ResultBox', {
     },
     template: `
             <div v-if="result">
-                <p><pre>{{ result.morse }}</pre></p>
+                <p><pre>{{ result.morse | morse }}</pre></p>
                 <small>{{ result.phrase }}</small>
                 <PlayBtn v-bind:result="result"></PlayBtn>
                 <button ref="stopbtn" @click="stopAudio">Stop</button>
