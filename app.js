@@ -19,9 +19,16 @@ const PlayBtn = Vue.component('PlayBtn', {
 
 const ErrorMsg = Vue.component('ErrorMsg', {
     template: `<div class="error">
-        <p>The following characters are invalid: {{ error }}. &nbsp;<span>X</span></p>
+        <p>The following characters are invalid: {{ error }}. &nbsp;
+            <span class="close" @click="close">&times;</span>
+        </p>
     </div>`,
-    props: ['error']
+    props: ['error'],
+    methods: {
+        close() {
+            this.$emit('close-error');
+        }
+    }
 }) 
 
 /**
@@ -65,6 +72,11 @@ new Vue({
         idset: new Set(),
         stopEvent: new Event('morse-stop')
     },
+    computed: {
+        isDisabled() {
+            return this.input.trim().length === 0;
+        }
+    },
     methods: {
         translate() {
             const getId = ()=> {
@@ -94,14 +106,7 @@ new Vue({
             localStorage.removeItem('morse');
         },
         deleteItem(id) {
-            let index = -1;
-            for(let i = 0; i < this.history.length; i++) {
-                if(this.history[i].id === id) {
-                    index = i;
-                    break;
-                }
-            }
-            this.history.splice(index);
+            this.history = this.history.filter(history => history.id !== id);
 
             // if deleting the object sets length to zero, simply remove it from LS.
             if(this.history.length > 0) {
@@ -109,11 +114,14 @@ new Vue({
             } else {
                 localStorage.removeItem('morse');
             }
+        },
+        closeErrorMsg() {
+            this.error = null;
         }
     },
     // On creation, check if there's data in LS.  If there is, set history to it, else set an []
     created() {
         const history = JSON.parse(localStorage.getItem('morse'));
-        this.history = history === null ? [] : history;
+        this.history = history ? history : [];
     }
 });

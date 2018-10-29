@@ -18,11 +18,14 @@
     <section>
         <h1>What is Morse Code?</h1>
         <p>In th 1800s, there were no telephones, no email, no fax machines or Internet.  If you wanted to communicate long distance, you had to send a letter, which could take weeks, or even months.  Samuel Morse, in 1825, was a painter, commissioned to paint a portrait of Lafayette in Washingto DC.  While away from home, he recieved a letter learning his wife was sick.  He packed his bags and hastened home as fast as he could.  But by the time he got home, not only was she dead, but also buried in the ground.</p>
-        <p>Bereaved but not determined, Morse decided that no one else should experience his fate.  Frustrated with the slow speed of communication, he began to investigate alternative means, using the nascient science of electricity.  By 1832, he invented the telegraph and with it, Morse code.</p>
+        <p>Devastated by the loss of his wife, Morse was determined to ensure that no one else would experience his fate.  Frustrated with the slow speed of communication, he began to investigate alternative means, using the nascient science of electricity.  By 1832, he invented the telegraph and with it, Morse code.</p>
         <p>Morse code is a system of dots and dashes to denote alphabetical and numerical symbols.  Each dot is one time unit long, and each dash is three time units long.  Each word is separated by a gap of seven time units and each letter by a gap of three time units so a user knows how to separate each signal and match it with the appropriate letter or number.</p>
         <p>You can listen to a a dot <a href="#" id="dot">here</a> and a dash <a href="#" id="dash">here.</a></p>
         <p>The telegram was the primary means of long distance communication for much of the 19<sup>th</sup> century and is still in limited use today.  The telegram was widely used during the American Civil War so generals could keep in touch with their leaders in Washington D.C. or Richmond Virginia.  Now most of it has been replaced by cell phones and the internet.  However you'll still find Morse code in the military or in aviation.  As an example, VOR-DME stations are still used as navigational aids, and they utilize Morse code.  The technology is however fading out, and even VOR systems will be wholly replaced by GPS systems in the near future.  Navy signalmen also use Morse code to flash light signals to other ships.</p>
         <p>Here you can play with that legacy technology.  If you'd like, you can enter something into the text field below.  Hit translate and it will produce the Morse code equivalent.</p>
+        <p>You can read more about Samuel Morse and Morse Code here:</p>
+        <p><a href="https://en.wikipedia.org/wiki/Samuel_Morse" target="_blank">Samuel Morse</a></p>
+        <p><a href="https://en.wikipedia.org/wiki/Morse_code" target="_blank">Morse Code</a></p>
     </section>
 
     <section id="app" class="container">
@@ -30,24 +33,29 @@
         <p>Please disregard all punctuation and use only alphabetical and numeric characters.</p>
         <input type="text" placeholder="Enter any sentence" v-model="input" class="form-elem">
         <button class="form-elem translate-btn"
+            :class="{ disabled : isDisabled }"
+            role="translate-button"
             @click="translate" 
-            :disabled="input.trim().length === 0">
+            :disabled="isDisabled">
             Translate!
         </button>
 
-        <error-msg v-if="error" :error="error"></error-msg>
+        <error-msg v-if="error" :error="error" @close-error="closeErrorMsg"></error-msg>
 
         <result-box :result="output"></result-box>
 
-        <ul>
-            <li v-for="(entry, index) of history" :key="entry.id">
+        <ul role="history-list">
+            <li v-for="(entry, index) of history" :key="entry.id" role="history-item">
                 <p><pre>{{ entry.output.morse }}</pre></p>
                 <p>{{ entry.output.phrase }}</p>
                 <play-btn :result="entry.output"></play-btn>
                 <button @click="()=> deleteItem(entry.id)">Delete</button>
+                <hr>
             </li>
         </ul>
-        <button @click="clearHistory">Clear History</button>
+        <div class="btn-container">
+            <button @click="clearHistory" class="clear-btn">Clear History</button>
+        </div>
     </section>
 
     <footer>

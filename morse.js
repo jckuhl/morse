@@ -57,7 +57,7 @@ class Morse {
      * @return {string} translated string
      */
     static toMorse(word) {
-        let matches = word.toString().match(/[^a-zA-Z0-9]\W+/);
+        let matches = word.toString().match(/[^a-zA-Z0-9\s]+/g);
         if(matches) {
             throw new Error('invalid string: ' + matches.toString());
         }
