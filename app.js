@@ -32,8 +32,12 @@ const PlayBtn = Vue.component('PlayBtn', {
     props: ['result'],
     methods: {
         playMorse() {
+            // stop all audio currently playing
             this.$emit('stop-all');
+
+            // check if playAll is not a function:
             const playAllNotAFunction = ()=> !Object.getOwnPropertyNames(this.result.audio).includes('playAll');
+
             // if pulled from LS, JSON nuked the playAll method, so we'll have to recreate it
             if(playAllNotAFunction) {
                 this.result.audio = MORSE_AUDIO.createAudioArray(this.result.text.phrase);
@@ -169,7 +173,10 @@ new Vue({
             this.error = null;
         },
         stopAudio(id) {
+            // grab the audio objects for everything in the history array
             let audio = this.history.filter(entry => entry.id === id)[0].output.audio;
+
+            // make sure the stopAll function exists first
             if(Object.getOwnPropertyNames(audio).includes('stopAll')) {
                 audio.stopAll();
             }
