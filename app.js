@@ -32,9 +32,14 @@ const PlayBtn = Vue.component('PlayBtn', {
     props: ['result'],
     methods: {
         playMorse() {
-            // this is the most Java-esque line of JavaScript I've ever written
-            MORSE_AUDIO.createAudioArray(this.result.phrase).playAll();
+            if(!Object.getOwnPropertyNames(this.result.audio).includes('playAll')) {
+                this.result.audio = MORSE_AUDIO.createAudioArray(this.result.text.phrase);
+            }
+            this.result.audio.playAll();
         }
+    },
+    created() {
+        console.log(Object.getOwnPropertyNames(this.result.audio));
     }
 });
 
@@ -61,16 +66,15 @@ const ResultBox = Vue.component('ResultBox', {
     },
     template: `
             <div v-if="result">
-                <p><pre>{{ result.morse | morse }}</pre></p>
-                <small>{{ result.phrase }}</small>
+                <p><pre>{{ result.text.morse | morse }}</pre></p>
+                <small>{{ result.text.phrase }}</small>
                 <PlayBtn v-bind:result="result"></PlayBtn>
                 <button ref="stopbtn" @click="stopAudio">Stop</button>
             </div>`,
     props: ['result'],
     methods: {
         stopAudio() {
-            const stop = new CustomEvent('morse-stop', { bubbles : true});
-            this.$refs.stopbtn.dispatchEvent(stop);
+            this.result.audio.stopAll();
         }
     }
 })
@@ -112,14 +116,20 @@ new Vue({
             };
             try {
                 let id = getId();
-                this.output = new Morse(this.input.trim());
+                const text = new Morse(this.input.trim());
+                const audio = MORSE_AUDIO.createAudioArray(text.phrase);
+                this.output = { text , audio }
                 this.history.unshift({ output: this.output, id: id});
                 localStorage.setItem('morse', JSON.stringify(this.history));
                 this.error = null;
                 this.input = '';
             } catch(error) {
-                // splitting by a ":" puts the erroneous characters at index 2.
-                this.error = error.toString().split(':')[2].trim();
+                if(error instanceof MorseError) {
+                    // splitting by a ":" puts the erroneous characters at index 2.
+                    this.error = error.toString().split(':')[2].trim();
+                } else {
+                    console.error(error);
+                }
             } 
         },
         clearHistory() {

@@ -101,6 +101,10 @@ const MORSE_AUDIO = {
                         this.audio[i - 1].addEventListener('ended', ()=> a.play());
                     }
                 });
+            },
+
+            stopAll() {
+                this.audio.forEach(a => a.pause());
             }
         }   
     }

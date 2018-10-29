@@ -6,6 +6,13 @@
 
 'use strict';
 
+class MorseError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message;
+    }
+}
+
 class Morse {
 
     constructor(phrase) {
@@ -63,7 +70,7 @@ class Morse {
     static toMorse(word) {
         const matches = word.toString().match(/[^a-zA-Z0-9\s]+/g);
         if(matches) {
-            throw new Error('invalid string: ' + matches.toString());
+            throw new MorseError('invalid string: ' + matches.toString());
         }
         
         return word.toLowerCase().split('').map(char => {
@@ -78,7 +85,7 @@ class Morse {
      */
     static fromMorse(morse) {
         if(!morse.match(/[^*-\S]/)) {
-            throw new Error('invalid string');
+            throw new MorseError('invalid string');
         }
 
         return morse.split(Morse.SEVENSPACES).map(word => {
