@@ -12,8 +12,12 @@ Vue.filter('morse', (value)=> {
         return ''
     }
     return value.split('').map(dotdash=> {
-        return dotdash === '*' ? '•' :
-                        dotdash === '-' ? '⁃' : dotdash; 
+        const symbols = {
+            '*': '•',
+            '-': '⁃',
+            ' ': ' '
+        }
+        return symbols[dotdash];
     }).join('');
 });
 
