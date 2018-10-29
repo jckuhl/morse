@@ -3,6 +3,12 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        watch: {
+            scripts: {
+                files: ['**/*.js', '**/*.css'],
+                tasks: ['cssmin', 'uglify'],
+            },
+        },
         cssmin: {
             options: {
                 mergeIntoShorthands: false,
@@ -41,7 +47,7 @@ module.exports = function(grunt) {
             }
         }
     });
-
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
@@ -49,5 +55,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
 
     // Default task(s).
-    grunt.registerTask('default', ['cssmin', 'uglify', 'jshint']);
+    grunt.registerTask('default', ['watch', 'cssmin', 'uglify', 'jshint']);
 };
