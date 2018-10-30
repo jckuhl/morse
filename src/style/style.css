@@ -120,3 +120,22 @@ header a {
 header a:visited {
     color: lightgray;
 }
+
+.btn {
+    color: white;
+    background: slateblue;
+}
+
+.stop-btn {
+    color: white;
+    background: darkred;
+}
+
+.delete-btn {
+    color: white;
+    background: darkgoldenrod;
+}
+
+.btn:hover, .clear-btn:hover {
+    background: dodgerblue;
+}

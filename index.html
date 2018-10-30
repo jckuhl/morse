@@ -62,7 +62,7 @@
                 <p>{{ entry.output.text.phrase }}</p>
                 <play-btn :result="entry.output" @stop-all="stopAllAudio"></play-btn>
                 <stop-btn :result="entry.output" :id="entry.id" @stop-audio="stopAudio"></stop-btn>
-                <button @click="()=> deleteItem(entry.id)">Delete</button>
+                <button @click="()=> deleteItem(entry.id)" class="delete-btn">Delete</button>
                 <hr>
             </li>
         </ul>

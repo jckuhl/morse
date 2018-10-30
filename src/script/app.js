@@ -26,7 +26,7 @@ Vue.filter('morse', (value)=> {
  * Play button to play the Morse code sound
  */
 const PlayBtn = Vue.component('PlayBtn', {
-    template: `<button @click="playMorse">Play!</button>`,
+    template: `<button @click="playMorse" class="btn">Play!</button>`,
     props: ['result'],
     methods: {
         playMorse() {
@@ -46,16 +46,9 @@ const PlayBtn = Vue.component('PlayBtn', {
 });
 
 const StopBtn = Vue.component('StopBtn', {
-    template: `<button @click="stopMorse">Stop</button>`,
+    template: `<button @click="stopMorse" class="stop-btn">Stop</button>`,
     props: ['result', 'id'],
     methods: {
-        // stopMorse() {
-        //     const stopAllNotAFunction = ()=> !Object.getOwnPropertyNames(this.result.audio).includes('stopAll');
-        //     if(stopAllNotAFunction) {
-        //         this.result.audio = MORSE_AUDIO.createAudioArray(this.result.text.phrase);
-        //     }
-        //     this.result.audio.stopAll();
-        // }
         stopMorse() {
             this.$emit('stop-audio', this.id);
         }
